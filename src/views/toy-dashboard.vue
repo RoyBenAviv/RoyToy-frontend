@@ -1,9 +1,11 @@
-<template>
+<template >
     <chart-one v-if="toys" />
+    <chart-two v-if="toys" />
 </template>
 
 <script>
 import chartOne from '../components/chart-one.vue';
+import chartTwo from '../components/chart-two.vue';
 
 export default {
     data() {
@@ -17,7 +19,8 @@ export default {
 
     },
     components: {
-        chartOne
+        chartOne,
+        chartTwo
     }
 };
 </script>
