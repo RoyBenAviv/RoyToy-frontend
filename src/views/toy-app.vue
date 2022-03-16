@@ -1,6 +1,4 @@
 <template>
-  <main>
-    <router-link to="/edit">Add a new toy</router-link>
     <toy-filter @setFilter="setFilter" />
     <toy-list v-if="toys" @removeToy="removeToy" :toys="toys" />
 
@@ -9,7 +7,7 @@
 
       </template>
 
-        <p>asdadadadsas</p>
+        <p>Chat is currently offline.</p>
 
       <template #footer>
 
@@ -18,7 +16,6 @@
 
 
     <div @click="isChatOpen = !isChatOpen" class="chat-widget">Chat</div>
-  </main>
 </template>
 
 <script>

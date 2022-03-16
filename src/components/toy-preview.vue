@@ -1,11 +1,16 @@
 <template>
-  <li>
     <custom-card>
       <template #header>
-        <p>{{ toy.name }}</p>
-        <p>{{ formatPrice }}</p>
-        <p v-for="label in toy.labels" :key="label">{{ label }}</p>
+        <img width="100%" :src="toy.url" alt="No image"/>
+          <div class="information">
+              <h2>{{ toy.name }}</h2>
+              <h2>{{ formatPrice }}</h2>
+          </div>
       </template>
+        
+        <div class="categories">
+            <p>Categories: <span v-for="label in toy.labels" :key="label">{{ label }}</span></p> 
+        </div>
 
       <template #footer>
         <button @click="goToDetail">Details</button>
@@ -13,7 +18,6 @@
         <button @click="removeToy(toy._id)">Delete</button>
       </template>
     </custom-card>
-  </li>
 </template>
 
 <script>

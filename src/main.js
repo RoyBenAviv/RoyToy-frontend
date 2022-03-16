@@ -5,6 +5,7 @@ import store from './store'
 import ElementPlus from 'element-plus'
 import VueGoogleMaps from '@fawmi/vue-google-maps'
 import 'element-plus/dist/index.css'
+import './styles/styles.scss'
 
 const app = createApp(App)
 

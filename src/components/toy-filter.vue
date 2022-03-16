@@ -1,23 +1,27 @@
 <template>
-  <section class="toy-filter">
-    <input v-model="filterBy.name" @input="setFilter" type="text" placeholder="Search toy.." />
+  <section class="toy-filter full">
 
+    <div class="search">
+       <input v-model="filterBy.name" @input="setFilter" type="text" placeholder="Search toy.." />
+    </div>
+
+  <div class="stock-filter">
     <label>
-      All
+      | All |
       <input type="radio" value v-model="filterBy.stock" @change="setFilter" />
     </label>
 
     <label>
-      On stock
+      | On stock |
       <input type="radio" value="true" v-model="filterBy.stock" @change="setFilter" />
     </label>
 
     <label>
-      Out of stock
+     | Out of stock |
       <input type="radio" value="false" v-model="filterBy.stock" @change="setFilter" />
     </label>
-    <el-select
-      style="width: 240px"
+        <el-select
+      style="width: 150px"
       placeholder="Select category"
       @change="setFilter"
       multiple
@@ -25,6 +29,10 @@
     >
       <el-option v-for="label in labels" :key="label" :label="label" :value="label" />
     </el-select>
+    |
+  </div>
+ 
+
     <label>
       Sort By:
       <select @change="setFilter" v-model="filterBy.sortBy">

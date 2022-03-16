@@ -1,14 +1,24 @@
-<template>
-  <ul>
-    <p v-if="isLoading">Loading...</p>
-    <toy-preview v-else @removeToy="removeToy" v-for="toy in toys" :toy="toy" :key="toy._id" />
-  </ul>
+<template >
+  <p v-if="isLoading">Loading...</p>
+  <section class="toy-list" v-else>
+    <carousel :items-to-show="6">
+      <slide style="{width: 1500px}" v-for="toy in toys" :key="toy._id">
+        <toy-preview @removeToy="removeToy"  :toy="toy"  />
+      </slide>
+          <template #addons>
+      <Navigation />
+      <Pagination />
+    </template>
+    </carousel>
+  </section>
 </template>
 
 <script>
 import toyPreview from './toy-preview.vue';
-
+import 'vue3-carousel/dist/carousel.css';
+import { Carousel, Slide, Pagination, Navigation } from 'vue3-carousel';
 export default {
+
   name: 'toy-list',
   props: {
     toys: {
@@ -18,6 +28,10 @@ export default {
   },
   components: {
     toyPreview,
+    Carousel,
+    Slide,
+    Pagination,
+    Navigation,
   },
   methods: {
     removeToy(toyId) {
@@ -25,7 +39,7 @@ export default {
     },
   },
   computed: {
-      isLoading() {
+    isLoading() {
       return this.$store.getters.isLoading;
     }
   }
