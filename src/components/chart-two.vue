@@ -1,5 +1,8 @@
 <template>
-    <PieChart :chartData="data" />
+    <section>
+        <h3>By Stock</h3>
+        <PieChart :chartData="data" />
+    </section>
 </template>
    
    <script>
@@ -17,11 +20,11 @@
                        {
                            data: [],
                            backgroundColor: [
-                               '#77CEFF',
-                               '#0079AF',
-                               '#123E6B',
-                               '#97B0C4',
-                               '#A5C8ED',
+                            '#0070d2',
+                            '#e83e8c',
+                            '#ffee00',
+                            '#008827',
+                            '#d50b22',
                            ],
                        },
    

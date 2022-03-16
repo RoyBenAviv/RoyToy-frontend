@@ -35,7 +35,7 @@ header.app-header {
         a:not(:nth-last-child(1)) {
             border-left: 2px solid $yellow;
         }
-        a:not(:nth-child(1)) {
+        a:nth-child(3), a:nth-child(4) {
             border-right: 2px solid $yellow;
         }
 

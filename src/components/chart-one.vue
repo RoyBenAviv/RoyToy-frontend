@@ -1,5 +1,9 @@
 <template>
+    <section>
+    <h3>By price</h3>
     <PieChart :chartData="data" />
+    </section>
+
 </template>
    
    <script>
@@ -17,11 +21,11 @@ export default {
                     {
                         data: [],
                         backgroundColor: [
-                            '#77CEFF',
-                            '#0079AF',
-                            '#123E6B',
-                            '#97B0C4',
-                            '#A5C8ED',
+                            '#0070d2',
+                            '#e83e8c',
+                            '#ffee00',
+                            '#008827',
+                            '#d50b22',
                         ],
                     },
 

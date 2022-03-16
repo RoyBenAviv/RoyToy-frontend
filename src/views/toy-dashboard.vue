@@ -1,6 +1,15 @@
 <template >
+<section class="toy-dashboard">
+<h1>Toys statistics</h1>
+<div class="charts">
     <chart-one v-if="toys" />
     <chart-two v-if="toys" />
+
+</div>
+
+
+</section>
+
 </template>
 
 <script>

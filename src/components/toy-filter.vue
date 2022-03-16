@@ -26,6 +26,8 @@
       @change="setFilter"
       multiple
       v-model="filterBy.labels"
+      collapse-tags
+      collapse-tags-tooltip
     >
       <el-option v-for="label in labels" :key="label" :label="label" :value="label" />
     </el-select>
