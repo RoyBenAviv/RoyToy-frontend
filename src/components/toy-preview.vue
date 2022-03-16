@@ -7,9 +7,8 @@
               <h2>{{ formatPrice }}</h2>
           </div>
       </template>
-        
         <div class="categories">
-            <p>Categories: <span v-for="label in toy.labels" :key="label">{{ label }}</span></p> 
+            <p>Categories: <span>{{ toy.labels.join(', ')}}</span></p> 
         </div>
 
       <template #footer>

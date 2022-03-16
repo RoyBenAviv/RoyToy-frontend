@@ -6,18 +6,26 @@
         Name of the toy?
       <input type="text" placeholder="Write the name here" v-model="toyToEdit.name" />
     </label>
-        Price of the toy?
+    <label>
+     Price of the toy?
       <input type="number" v-model="toyToEdit.price" min="0" max="150"/>
+    </label>
+
       <label> On stock?
         <input type="checkbox" v-model="toyToEdit.inStock" />
       </label>
+    <div class="categories">
+      <p>Choose Categories:</p>
+      <el-checkbox v-for="label in labels"
+       :key="label" :label="label"
+        v-model="toyToEdit.labels"
+         size="medium" border />
+    </div>
 
-      <label class="label-category" v-for="label in labels" :key="label">
-            {{label}}
-              <input type="checkbox" :value="label" v-model="toyToEdit.labels"/>
 
 
-      </label>
+
+
       <button>Save</button>
     </form>
   </section>
@@ -60,7 +68,7 @@ export default {
     },
     formTitle() {
             const { id } = this.$route.params;
-            return id ? 'Edit Toy' : 'Add new toy!';
+            return id ? 'Edit Toy' : 'Add a new toy!';
     },
   }
 };

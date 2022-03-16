@@ -43,6 +43,7 @@ function getEmptyToy() {
         price: 0,
         inStock: true,
         labels: [],
-        reviews: []
+        reviews: [],
+        url: ''
     };
 }

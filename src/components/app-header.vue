@@ -3,7 +3,7 @@
     <img class="logo" src="/src/assets/images/logo.png" />
     <nav>
      <router-link to="/dashboard">Dashboard</router-link>
-      <router-link to="/about">about</router-link>
+      <router-link to="/about">About</router-link>
       <router-link to="/edit">Add Toy</router-link>
     </nav>
   </header>

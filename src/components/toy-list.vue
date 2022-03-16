@@ -1,8 +1,8 @@
 <template >
   <p v-if="isLoading">Loading...</p>
   <section class="toy-list" v-else>
-    <carousel :items-to-show="6">
-      <slide style="{width: 1500px}" v-for="toy in toys" :key="toy._id">
+    <carousel :items-to-show="5" :wrap-around="true">
+      <slide v-for="toy in toys" :key="toy._id">
         <toy-preview @removeToy="removeToy"  :toy="toy"  />
       </slide>
           <template #addons>
@@ -20,6 +20,7 @@ import { Carousel, Slide, Pagination, Navigation } from 'vue3-carousel';
 export default {
 
   name: 'toy-list',
+
   props: {
     toys: {
       type: Array,
