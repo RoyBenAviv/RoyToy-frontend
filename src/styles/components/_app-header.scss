@@ -1,4 +1,8 @@
 header.app-header {
+    .router-link-active {
+        text-decoration: underline;
+        color: darken($red, 15%);
+    }
     display: flex;
     font-family: flower;
     justify-content: space-between;
@@ -24,20 +28,21 @@ header.app-header {
             text-decoration: none;
             color: lighten($yellow, 20%);
             font-weight: normal;
-            width: rem(180px);
-            
+            width: rem(200px);
+            text-align: center;
+            white-space: nowrap;
+            border-right: 2px solid $yellow;
             transition: color 0.3s ease-in;
             &:hover {
                 text-decoration: underline;
                 color: $red;
             }
         }
-        a:not(:nth-last-child(1)) {
+        a:nth-child(1) {
             border-left: 2px solid $yellow;
         }
-        a:nth-child(3), a:nth-child(4) {
-            border-right: 2px solid $yellow;
+        a:last-child {
+            width: 300px;
         }
-
     }
 }

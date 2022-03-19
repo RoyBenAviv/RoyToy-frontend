@@ -1,6 +1,6 @@
 <template>
     <section>
-        <h3>By Stock</h3>
+        <h2>By Stock</h2>
         <PieChart :chartData="data" />
     </section>
 </template>

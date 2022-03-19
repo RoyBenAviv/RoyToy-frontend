@@ -40,40 +40,40 @@ export default {
     },
   },
   actions: {
-    loadToys({ commit, state }) {
+    async loadToys({ commit, state }) {
       commit({ type: 'setIsLoading', isLoading: true })
-      toyService.query(state.filterBy)
-        .then((toys) => {
-          commit({ type: 'setToys', toys });
-        })
-        .catch(err => {
-          console.error('Cannot Load toys', err);
-          throw err;
-        })
-        .finally(() => {
-          commit({ type: 'setIsLoading', isLoading: false });
-        });
+      try {
+        var toys = await toyService.query(state.filterBy)
+        commit({ type: 'setToys', toys });
+      }
+      catch(err) {
+        console.error('Cannot Load toys', err);
+        throw err;
+      }
+      finally {
+        commit({ type: 'setIsLoading', isLoading: false });
+      }
     },
-    removeToy({ commit }, { id }) {
-      toyService.remove(id)
-        .then(() => {
-          commit({ type: 'removeToy', id });
-        })
-        .catch(err => {
-          console.error('Cannot remove toy', err);
-          throw err;
-        });
+    async removeToy({ commit }, { id }) {
+      try {
+        var id = await toyService.remove(id)
+        commit({ type: 'removeToy', id });
+      }
+      catch(err) {
+        console.error('Cannot remove toy', err);
+        throw err;
+      }
+        
     },
-    saveToy({ commit }, { toy }) {
-      console.log(toy);
-      toyService.save(toy)
-        .then((toy) => {
-          commit({ type: 'saveToy', toy });
-        })
-        .catch(err => {
-          console.error('Cannot Edit/Add toy', err);
-          throw err;
-        });
+    async saveToy({ commit }, { toy }) {
+      try {
+        var toy = await toyService.save(toy)
+          commit({ type: 'saveToy', toy })
+        }
+      catch(err) {
+        console.error('Cannot Edit/Add toy', err);
+        throw err;
+      }
     },
     filter({ commit, dispatch }, { filterBy }) {
       commit({ type: 'setFilter', filterBy });

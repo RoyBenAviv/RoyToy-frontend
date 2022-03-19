@@ -1,14 +1,15 @@
 <template>
     <custom-card>
+      <img class="out-of-stock" v-if="!toy.inStock" src="../assets/images/out-of-stock.png"/>
       <template #header>
-        <img width="100%" :src="toy.url" alt="No image"/>
-          <div class="information">
+        <img :class="{ nostock: !toy.inStock }" width="100%" :src="toy.url" alt="No image"/>
+          <div :class="{ nostock: !toy.inStock }" class="information">
               <h2>{{ toy.name }}</h2>
               <h2>{{ formatPrice }}</h2>
           </div>
       </template>
         <div class="categories">
-            <p>Categories: <span>{{ toy.labels.join(', ')}}</span></p> 
+            <p>Categories: <span v-for="label in toy.labels" :key="label">{{ label }}</span></p> 
         </div>
 
       <template #footer>

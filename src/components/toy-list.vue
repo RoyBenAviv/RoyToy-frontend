@@ -1,7 +1,7 @@
 <template >
   <p v-if="isLoading">Loading...</p>
-  <section class="toy-list" v-else>
-    <carousel :items-to-show="5" :wrap-around="true">
+  <section class="toy-list main-layout" v-else>
+    <carousel :breakpoints="breakpoints" :wrap-around="true">
       <slide v-for="toy in toys" :key="toy._id">
         <toy-preview @removeToy="removeToy"  :toy="toy"  />
       </slide>
@@ -26,6 +26,25 @@ export default {
       type: Array,
       required: true,
     },
+  },
+  data() {
+    return {
+      breakpoints: {
+
+        400: {
+          itemsToShow: 2
+        },
+        700: {
+          itemsToShow: 3
+        },
+        900: {
+          itemsToShow: 4
+        },
+        1300: {
+          itemsToShow: 5
+        }
+      }
+    }
   },
   components: {
     toyPreview,

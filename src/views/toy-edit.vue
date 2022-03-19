@@ -42,24 +42,32 @@ export default {
       toyToEdit: null,
     };
   },
-  created() {
+ async created() {
     const { id } = this.$route.params;
     if (id) {
-      toyService.getById(id).then((toy) => {
+      // toyService.getById(id).then((toy) => {
+      //   this.toyToEdit = toy;
+      // });
+      try{
+        const toy = await toyService.getById(id)
         this.toyToEdit = toy;
-      });
+      }catch(err) {
+        console.log(err);
+      }
     } else this.toyToEdit = toyService.getEmptyToy();
   },
   methods: {
     goBack() {
       this.$router.push('/');
     },
-    save() {
-      console.log('this.toyToEdit',this.toyToEdit);
-      this.$store.dispatch({ type: 'saveToy', toy: this.toyToEdit })
-        .then(() => {
-          this.$router.push('/');
-        });
+    async save() {
+      try {
+        await this.$store.dispatch({ type: 'saveToy', toy: this.toyToEdit })
+        this.$router.push('/');
+      }
+      catch(err) {
+        console.log(err)
+      }
     },
   },
   computed: {
