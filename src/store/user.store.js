@@ -3,27 +3,26 @@ import { userService } from '../services/user.service.js'
 
 export default {
     state: {
-        user: userService.getLoggedinUser()
+        loggedinUser: userService.getLoggedinUser()
     },
     getters: {
-        getUser(state) {
-            return state.user
-        }
+        loggedinUser({ loggedinUser }) { 
+            return loggedinUser 
+        },
+
     },
     mutations: {
-        setUser(state, {user}) {
-            state.user = user
+        setLoggedinUser(state, { user }) {
+            // Yaron: needed this workaround as for score not reactive from birth
+            state.loggedinUser = (user) ? {...user} : null;
         },
-        logout(state) {
-            state.user = null
-        }
     },
     actions: {
-        async setUser({commit}, { user }) {
+        async login({commit}, { userCred }) {
             try {
-                console.log(user)
-               var user = await userService.login(user)
-               commit({type: 'setUser', user})
+               const user = await userService.login(userCred)
+               commit({type: 'setLoggedinUser', user})
+               return user;
             }
             catch(err) {
                 console.log('cannot set user', err)
@@ -32,16 +31,16 @@ export default {
         async logout({commit}) {
             try {
                 await userService.logout()
-                commit('logout')
+                commit({ type: 'setLoggedinUser', user: null })
             }
             catch(err) {
                 console.log('logout failed', err)
             }
         },
-        async signup({commit}, { user }) {
+        async signup({commit}, { userCred }) {
             try {
-                var user = await userService.signup(user)
-                commit({type: 'setUser', user})
+                const user = await userService.signup(userCred)
+                commit({type: 'setLoggedinUser', user})
             }
             catch(err) {
                 console.log('signup failed', err)

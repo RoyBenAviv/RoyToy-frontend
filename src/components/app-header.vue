@@ -14,7 +14,7 @@
 export default {
   computed: {
         user() {
-            return this.$store.getters.getUser;
+            return this.$store.getters.loggedinUser;
         },
         checkUser() {
             return this.user ? `Welcome ${this.user.username}!` : 'Log-in / Sign-up!'

@@ -6,6 +6,7 @@ export default {
     labels: ["On wheels", "Box game", "Art", "Baby", "Doll", "Puzzle", "Outdoor"],
     filterBy: null,
     isLoading: false,
+    // msgs: []
   },
   getters: {
     getToys(state) {
@@ -30,7 +31,6 @@ export default {
       state.toys.splice(idx, 1);
     },
     saveToy(state, { toy }) {
-      console.log(toy);
       const idx = state.toys.findIndex((currToy) => currToy._id === toy._id);
       if (idx !== -1) state.toys.splice(idx, 1, toy);
       else state.toys.push(toy);
@@ -44,7 +44,7 @@ export default {
       commit({ type: 'setIsLoading', isLoading: true })
       try {
         var toys = await toyService.query(state.filterBy)
-        commit({ type: 'setToys', toys });
+        commit({ type: 'setToys', toys })
       }
       catch(err) {
         console.error('Cannot Load toys', err);

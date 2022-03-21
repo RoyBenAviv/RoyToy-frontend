@@ -21,37 +21,61 @@
 
       <h4>Reviews:</h4>
       <ul>
-        <li v-if="toy.reviews.length" v-for="review in toy.reviews" :key="review">
-          <p>{{ review.txt }}</p>
+        <li v-for="review in reviews" :key="review._id">
+          <p>{{ review.content }}</p>
         </li>
-        <li v-else>No reviews yet.</li>
       </ul>
+        <form @submit.prevent="addReview">
+          <input type="text" placeholder="Add new review!" v-model="newReview.content" />
+        <button>Save</button>
+        </form>
     </article>
     <button @click="goBack">go back</button>
   </section>
+  <chat-room v-if="isChatOpen" :toy="toy"/>
+    <!-- <nice-popup class="chat" >
+    <template #header></template>
+
+    <p>Chat is currently offline.</p>
+
+    <template #footer></template>
+  </nice-popup> -->
+    <div @click="isChatOpen = !isChatOpen" class="chat-widget">Chat</div>
 </template>
 
 <script>
 import { toyService } from '../services/toy.service.js';
-
+// import nicePopup from '../components/nice-popup.vue';
+import chatRoom from '../components/chat-room.vue';
 
 export default {
   name: 'toy-details',
   data() {
     return {
       toy: null,
+      reviews: [],
+      newReview: {
+          userId: this.$store.getters.loggedinUser?._id || '',
+          toyId: null,
+          content: ''
+      },
+      isChatOpen: false
     };
   },
-  created() {
+  async created() {
     const { id } = this.$route.params;
-    toyService.getById(id).then((toy) => {
-      this.toy = toy;
-    });
+    const toy = await toyService.getById(id)
+    this.toy = toy;
+    this.newReview.toyId = id
+    this.reviews = await this.$store.dispatch({type: 'loadReviews', id })
   },
   methods: {
     goBack() {
       this.$router.push('/');
     },
+    async addReview() {
+        await this.$store.dispatch({ type: 'addReview', review: this.newReview })
+    }
   },
   computed: {
     formatDate() {
@@ -61,7 +85,13 @@ export default {
       return new Intl.NumberFormat('en-US',
         { style: 'currency', currency: 'USD' })
         .format(this.toy.price);
-    }
+    },
+    reviews() {
+      return this.$store.getters.reviews;
+    },
+  },
+  components: {
+    chatRoom
   }
 };
 

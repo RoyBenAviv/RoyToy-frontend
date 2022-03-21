@@ -1,22 +1,22 @@
 <template>
     <section class="log-page">
         <h1>LOGIN/SIGNUP Page</h1>
-        <section v-if="user">
-            <h2>Welcome {{ user.fullname }}</h2>
+        <section v-if="loggedinUser">
+            <h2>Welcome {{ loggedinUser.fullname }}</h2>
             <button @click="logout">Logout</button>
         </section>
         <form v-else @submit.prevent="login">
-            <input type="text" v-model="username" placeholder="Enter username" />
-            <input type="text" v-model="password" placeholder="Enter password" />
+            <input type="text" v-model="loginCred.username" placeholder="Enter username" />
+            <input type="text" v-model="loginCred.password" placeholder="Enter password" />
             <button>Login</button>
         </form>
         <hr />
         <h4>Signup</h4>
         <form @submit.prevent="signup">
-            <input type="text" v-model="fullname" placeholder="Enter fullname" />
-            <input type="text" v-model="username" placeholder="Enter username" />
-            <input type="text" v-model="password" placeholder="Enter password" />
-            <button>Signup</button>
+            <input type="text" v-model="signupCred.fullname" placeholder="Enter full name" />
+            <input type="text" v-model="signupCred.username" placeholder="Enter username" />
+            <input type="password" v-model="signupCred.password" placeholder="Enter password" />
+            <button>Signup Now!</button>
         </form>
     </section>
 </template>
@@ -30,24 +30,14 @@ export default {
     name: 'Login Page',
     data() {
         return {
-            user: {
-            fullname: '',
-            username: '',
-            password: ''
-            }
-
+            loginCred: {username: 'user1', password: '123'},
+            signupCred: {username: '', password: '', fullname: ''},
         };
     },
     methods: {
         async login() {
-
-            const user = {
-                username: this.username,
-                password: this.password
-            };
-
             try {
-                await this.$store.dispatch({ type: 'setUser', user });
+                await this.$store.dispatch({ type: 'login', userCred: this.loginCred });
                 this.$router.push('/');
             } catch (err) {
                 console.log(err);
@@ -65,13 +55,8 @@ export default {
             }
         },
         async signup() {
-            const user = {
-                username: this.username,
-                password: this.password,
-                fullname: this.fullname
-            }
             try {
-                await this.$store.dispatch({ type: 'signup', user })
+                await this.$store.dispatch({ type: 'signup', userCred: this.signupCred })
                 this.$router.push('/');
             }
             catch (err) {
@@ -83,8 +68,8 @@ export default {
 
     },
     computed: {
-        user() {
-            return this.$store.getters.getUser;
+        loggedinUser() {
+            return this.$store.getters.loggedinUser;
         }
     },
     components: {

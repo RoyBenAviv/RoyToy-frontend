@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { httpService } from './http.service';
 
 axios.defaults.withCredentials = true
 
@@ -10,68 +11,24 @@ export const toyService = {
     getEmptyToy
 };
 
-function _getUrl(id = '') {
-    const BASE_URL =
-        process.env.NODE_ENV !== 'development'
-            ? '/api/toy'
-            : '//localhost:3030/api/toy';
-    return `${BASE_URL}/${id}`;
-}
-
 async function query(filterBy) {
-    try {
-        const res = await axios.get(_getUrl(), { params: filterBy })
-        return res.data
-    }
-    catch (err) {
-        console.log('Cannot load toys', err);
-    }
+    return await httpService.get('toy', filterBy)
 }
-
-// function getById(toyId) {
-    
-//     return axios.get(_getUrl(toyId))
-//         .then(res => res.data);
-// }
 
 async function getById(toyId) {
-    try {
-        const res = await axios.get(_getUrl(toyId))
-        return res.data
-    }
-    catch(err) {
-        console.log('Cannot find toy', toy)
-    }
+    return await httpService.get(`toy/${toyId}`)
 }
 
 async function remove(toyId) {
-    try {
-        const res = await axios.delete(_getUrl(toyId));
-        return res.data
-    }
-    catch(err) {
-        console.log('Cannot remove toy', err)
-    }
+    return await httpService.delete(`toy/${toyId}`)
 }
 
 async function save(toy) {
     if (toy._id) {
-        try {
-            const res = await axios.put(_getUrl(toy._id), toy)
-            return res.data
-        }
-        catch(err) {
-            console.log('Cannot save toy', err)
-        }
+        return await httpService.put(`toy/${toy._id}`, toy)
     } 
     else {
-        try {
-            const res = await axios.post(_getUrl(), toy)
-            return res.data
-        }
-        catch(err) {
-            console.log('Cannot add a new toy', err)
-        }
+        return await httpService.post('toy', toy)
     }
 }
 
